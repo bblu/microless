@@ -1,14 +1,20 @@
-require('seneca')()
-  // a local pattern
-  .add('say:hello', function (msg, respond){ respond(null, {text: "Hi!"}) })
+var SenecaWeb = require('seneca-web')
+var Express = require('express')
+var Router = Express.Router
+var context = new Router()
 
-  // send any role:math patterns out over the network
-  // IMPORTANT: must match listening service
-  .client({ type: 'tcp', pin: 'role:math' })
+var senecaWebConfig = {
+      context: context,
+      adapter: require('seneca-web-adapter-express'),
+      options: { parseBody: false } // so we can use body-parser
+}
 
-  .use('math') // finds ./math.js in local folder
-  //.act('role:math,cmd:sum,left:1,right:2', console.log)
-  .listen()
-  
+var app = Express()
+      .use( require('body-parser').json() )
+      .use( context )
+      .listen(3000)
 
-  //curl -d '{"role":"math","cmd":"sum","left":1,"right":2}' http://localhost:10101/act
+var seneca = require('seneca')()
+      .use(SenecaWeb, senecaWebConfig )
+      .use('api')
+      .client( { type:'tcp', pin:'role:math' } )
