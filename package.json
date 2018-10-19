@@ -1,0 +1,25 @@
+{
+  "name": "microservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bblu/mservice.git"
+  },
+  "keywords": [
+    "koa"
+  ],
+  "author": "bblu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bblu/mservice/issues"
+  },
+  "homepage": "https://github.com/bblu/mservice#readme",
+  "dependencies": {
+    "seneca": "^3.7.0"
+  }
+}
